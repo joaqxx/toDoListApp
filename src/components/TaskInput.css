@@ -1,0 +1,88 @@
+.task-input-section {
+  margin-bottom: 2rem;
+}
+
+.input-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.task-input {
+  flex: 1;
+  padding: 0.875rem 1rem;
+  background-color: #242424;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.task-input::placeholder {
+  color: #606060;
+}
+
+.task-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: #2a2a2a;
+}
+
+.date-input {
+  padding: 0.875rem 1rem;
+  background-color: #242424;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  color: #606060;
+  font-size: 0.95rem;
+  min-width: 140px;
+  transition: all 0.2s ease;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+  cursor: pointer;
+}
+
+.add-task-button {
+  padding: 0.875rem 1.5rem;
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.add-task-button:hover {
+  background-color: #2563eb;
+}
+
+.add-task-button:active {
+  background-color: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .input-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .date-input {
+    min-width: 100%;
+  }
+}

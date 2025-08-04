@@ -1,0 +1,511 @@
+.pomodoro-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* Default to column for centering */
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #1a1a1a;
+  min-height: calc(100vh - 80px); /* Account for header height */
+}
+
+.pomodoro-card {
+  background-color: #151515;
+  border: 1px solid #252525;
+  border-radius: 12px;
+  padding: 2rem; /* Adjusted padding */
+  text-align: center;
+  width: 90%; /* Take more width */
+  max-width: 1200px; /* Max width for large screens */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  display: flex; /* Use flexbox for landscape layout */
+  flex-direction: row; /* Default to row for landscape */
+  justify-content: space-around; /* Distribute space */
+  align-items: center; /* Align items vertically */
+  gap: 2rem; /* Gap between panels */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+/* Two-panel layout */
+.pomodoro-left-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 2; /* Give more space to the timer panel */
+  min-width: 350px; /* Minimum width for the left panel */
+}
+
+.pomodoro-right-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1; /* Less space for controls panel */
+  min-width: 250px; /* Minimum width for the right panel */
+}
+
+.pomodoro-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.session-info {
+  font-size: 1rem;
+  color: #a0a0a0;
+  margin-bottom: 1rem; /* Adjusted margin */
+}
+
+.session-mode {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #3b82f6;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.session-mode.work {
+  color: #ef4444;
+}
+
+.session-mode.short-break {
+  color: #10b981;
+}
+
+.session-mode.long-break {
+  color: #8b5cf6;
+}
+
+/* Session Title Styles */
+.session-title-container {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-color: #1f1f1f;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* Take full width of its panel */
+}
+
+.session-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.4;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.session-title.work {
+  color: #fecaca;
+  border-left: 4px solid #ef4444;
+  padding-left: 1rem;
+}
+
+.session-title.short-break {
+  color: #bbf7d0;
+  border-left: 4px solid #10b981;
+  padding-left: 1rem;
+}
+
+.session-title.long-break {
+  color: #ddd6fe;
+  border-left: 4px solid #8b5cf6;
+  padding-left: 1rem;
+}
+
+.session-title.default {
+  color: #a0a0a0;
+  font-style: italic;
+}
+
+/* Session Title Input Modal */
+.title-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.title-modal {
+  background-color: #151515;
+  border: 1px solid #252525;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.title-modal h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.title-modal p {
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.title-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background-color: #1f1f1f;
+  border: 1px solid #303030;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.title-input::placeholder {
+  color: #606060;
+}
+
+.title-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: #2a2a2a;
+}
+
+.title-modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.title-modal-button {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 100px;
+}
+
+.title-modal-button.primary {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+.title-modal-button.primary:hover {
+  background-color: #2563eb;
+}
+
+.title-modal-button.secondary {
+  background-color: #404040;
+  color: #ffffff;
+}
+
+.title-modal-button.secondary:hover {
+  background-color: #505050;
+}
+
+.timer-display {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  position: absolute; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Courier New", monospace;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.progress-ring {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto; /* Center the ring */
+  position: relative; /* For timer-display overlay */
+}
+
+.progress-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.progress-ring-background {
+  fill: none;
+  stroke: #2a2a2a;
+  stroke-width: 8;
+}
+
+.progress-ring-progress {
+  fill: none;
+  stroke: #3b82f6;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.progress-ring-progress.work {
+  stroke: #ef4444;
+}
+
+.progress-ring-progress.short-break {
+  stroke: #10b981;
+}
+
+.progress-ring-progress.long-break {
+  stroke: #8b5cf6;
+}
+
+.timer-controls {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem; /* Space from timer */
+  width: 100%; /* Take full width of its panel */
+}
+
+.control-button {
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.control-button.start {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.control-button.start:hover {
+  background-color: #059669;
+}
+
+.control-button.pause {
+  background-color: #f59e0b;
+  color: #ffffff;
+}
+
+.control-button.pause:hover {
+  background-color: #d97706;
+}
+
+.control-button.reset {
+  background-color: #6b7280;
+  color: #ffffff;
+}
+
+.control-button.reset:hover {
+  background-color: #4b5563;
+}
+
+.session-counter {
+  background-color: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 2rem;
+  width: 100%; /* Take full width of its panel */
+}
+
+.session-counter h3 {
+  font-size: 1rem;
+  color: #e0e0e0;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.session-progress {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.session-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #404040;
+  transition: background-color 0.2s ease;
+}
+
+.session-dot.completed {
+  background-color: #10b981;
+}
+
+.session-dot.current {
+  background-color: #3b82f6;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.cycle-info {
+  font-size: 0.9rem;
+  color: #a0a0a0;
+}
+
+.notification {
+  position: fixed;
+  top: 100px;
+  right: 2rem;
+  background-color: #151515;
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  color: #ffffff;
+  font-weight: 600;
+  z-index: 1000;
+  animation: slideIn 0.3s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .pomodoro-card {
+    flex-direction: column; /* Stack panels vertically on smaller screens */
+    padding: 2rem 1.5rem;
+    gap: 2rem;
+  }
+
+  .pomodoro-left-panel,
+  .pomodoro-right-panel {
+    min-width: unset; /* Remove min-width constraint */
+    width: 100%; /* Take full width when stacked */
+  }
+
+  .pomodoro-title {
+    font-size: 1.8rem;
+  }
+
+  .timer-display {
+    font-size: 3.5rem;
+  }
+
+  .progress-ring {
+    width: 180px;
+    height: 180px;
+  }
+
+  .timer-controls {
+    flex-direction: row; /* Keep buttons horizontal on smaller screens if space allows */
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .control-button {
+    flex: 1; /* Distribute space among buttons */
+    min-width: unset;
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pomodoro-card {
+    padding: 1.5rem;
+  }
+
+  .pomodoro-title {
+    font-size: 1.5rem;
+  }
+
+  .timer-display {
+    font-size: 3rem;
+  }
+
+  .progress-ring {
+    width: 150px;
+    height: 150px;
+  }
+
+  .title-modal {
+    padding: 1.5rem;
+  }
+
+  .title-modal-buttons {
+    flex-direction: column;
+  }
+
+  .title-modal-button {
+    width: 100%;
+  }
+
+  .notification {
+    right: 1rem;
+    left: 1rem;
+    top: 80px; /* Adjust for smaller header */
+  }
+}
